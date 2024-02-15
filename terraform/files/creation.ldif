@@ -1,0 +1,27 @@
+dn: CN={{.Username}},CN=Users,DC=hashidemos,DC=io
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+userPrincipalName: {{.Username}}@hashidemos.io
+givenName: {{.DisplayName}}
+sAMAccountName: {{.Username}}
+sn: Dynamic User
+mail:  {{.Username}}@hashidemos.io
+
+
+dn: CN={{.Username}},CN=Users,DC=hashidemos,DC=io
+changetype: modify
+replace: unicodePwd
+unicodePwd::{{ printf "%q" .Password | utf16le | base64 }}
+-
+replace: userAccountControl
+userAccountControl: 66048
+-
+
+dn: CN=Hashicorp APP Admins,OU=Groups,DC=hashidemos,DC=io
+changetype: modify
+add: member
+member: CN={{.Username}},CN=Users,DC=hashidemos,DC=io
+-

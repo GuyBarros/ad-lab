@@ -15,3 +15,5 @@ cd c:\stage\ad-lab\scripts
 - run 01_install_ad_role.ps1
 - reboot
 - run scripts 12-15
+- reboot
+- configure vault
